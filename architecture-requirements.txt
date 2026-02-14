@@ -1,0 +1,271 @@
+Build a production-ready SaaS web application for task tracking between freelancers and clients.
+
+Tech Stack:
+
+Frontend: Vue 3 + TypeScript + Vite
+
+Styling: TailwindCSS
+
+Backend: Django + Django REST Framework
+
+Database: PostgreSQL
+
+Containerization: Docker + Docker Compose
+
+Authentication: JWT-based authentication
+
+Deployment-ready configuration
+
+=====================================
+PROJECT IDEA
+
+The platform allows:
+
+Freelancers to:
+
+Create projects
+
+Break projects into tasks
+
+Assign a unique track ID / token to each client per project
+
+Update task status (Todo / In Progress / Done)
+
+Log daily progress updates
+
+Upload small attachments (optional)
+
+Send the client track ID so that the client can access a read-only dashboard
+
+Clients to:
+
+Access a secure dashboard via the freelancer-issued track ID
+
+View tasks and project progress relevant only to their ID
+
+See tasks from multiple freelancers, each filtered by project/client ID
+
+Comment on each task for clarifications or modification requests
+
+Cannot modify task status, attachments, or other freelancer-only data
+
+=====================================
+ARCHITECTURE REQUIREMENTS
+
+Separate frontend and backend folders
+
+Use clean architecture principles
+
+Use environment variables for sensitive data
+
+Use Docker for:
+
+Django service
+
+PostgreSQL service
+
+Use docker-compose.yml to orchestrate services
+
+Backend should run with Gunicorn in production
+
+Enable CORS securely
+
+No hardcoded secrets
+
+Use .env file
+
+=====================================
+BACKEND REQUIREMENTS (DJANGO)
+
+Use Django REST Framework.
+
+Models:
+
+User (custom user model)
+
+Project
+
+Task
+
+Comment
+
+ActivityLog
+
+ClientAccessToken (tracks which clients can view which projects/tasks)
+
+Project fields:
+
+title
+
+description
+
+client_email
+
+freelancer (ForeignKey to User)
+
+status
+
+created_at
+
+updated_at
+
+Task fields:
+
+title
+
+description
+
+status
+
+due_date
+
+project (ForeignKey)
+
+track_id (unique, generated per client if shared)
+
+ClientAccessToken fields:
+
+client_email
+
+project (ForeignKey)
+
+token (secure UUID or JWT)
+
+allowed_tasks (optional filter)
+
+Implement:
+
+JWT authentication for freelancers
+
+Token-based access for clients
+
+Role-based permissions (freelancer / client)
+
+Secure API endpoints
+
+Rate limiting
+
+CSRF protection
+
+Input validation
+
+Proper serializers
+
+Pagination
+
+Filtering
+
+=====================================
+SECURITY REQUIREMENTS
+
+HTTPS-ready config
+
+Store secrets in environment variables
+
+Hash passwords securely
+
+Use Django default password hasher
+
+Prevent SQL injection, XSS, CSRF
+
+Secure CORS configuration
+
+Limit file upload size
+
+Use secure cookies
+
+Disable DEBUG in production
+
+Add basic logging
+
+=====================================
+FRONTEND REQUIREMENTS (VUE)
+
+Vue 3 Composition API
+
+TypeScript everywhere
+
+Axios for API calls
+
+Global auth store (Pinia)
+
+JWT stored securely
+
+Route guards
+
+Protected routes
+
+Dashboard layout
+
+Sidebar navigation
+
+Clean SaaS-style UI using Tailwind
+
+Responsive design
+
+Pages:
+
+Login
+
+Register
+
+Freelancer Dashboard (projects, tasks, assign track IDs)
+
+Task Board (Kanban style)
+
+Client Dashboard (read-only): accessible via track ID/token, shows tasks, allows commenting
+
+=====================================
+DOCKER REQUIREMENTS
+
+Provide:
+
+Dockerfile for Django
+
+docker-compose.yml including:
+
+web (Django)
+
+db (Postgres)
+
+Proper volumes
+
+Environment variable config
+
+Database migrations on startup
+
+=====================================
+BONUS FEATURES
+
+Client-specific secure dashboard via track ID
+
+Activity timeline
+
+Dark mode toggle
+
+Basic analytics
+
+Simple notification system
+
+=====================================
+OUTPUT FORMAT
+
+Generate:
+
+Folder structure
+
+Backend code
+
+Frontend structure
+
+Docker configuration
+
+.env example
+
+Clear explanation of architecture
+
+Deployment steps for:
+
+VPS (Ubuntu)
+
+Vercel (frontend)
