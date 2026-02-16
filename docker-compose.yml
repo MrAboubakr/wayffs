@@ -1,14 +1,15 @@
 services:
   db:
+    container_name: wayffs-container
     image: postgres:15
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=wayfs
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=wayffsDB
+      - POSTGRES_USER=wayffs
+      - POSTGRES_PASSWORD=wayfs900
     ports:
-      - "5432:5432"
+      - "5434:5432"
 
   backend:
     build: ./backend

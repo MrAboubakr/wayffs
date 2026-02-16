@@ -1,1 +1,677 @@
 @import "tailwindcss";
+
+/* ============================================================
+   WAYFS CUSTOM DESIGN SYSTEM
+   ============================================================ */
+
+@theme {
+    /* ── Text Gradient Colors ── */
+    --color-brand-primary: #5634BA;
+    --color-brand-accent: #560DDE;
+    --color-danger-start: #922B2B;
+    --color-danger-end: #AF3F00;
+    --color-lime-accent: #96A80D;
+
+    /* ── Component / Button / Nav Colors ── */
+    --color-comp-teal: #316D70;
+    --color-comp-cyan: #48C6CB;
+    --color-comp-magenta: #C914C7;
+    --color-comp-green: #16FF4B;
+
+    /* ── Dark Mode Background ── */
+    --color-dark-bg: #0D0520;
+    --color-dark-surface: #150A30;
+    --color-dark-surface-2: #1A0E3A;
+    --color-dark-card: rgba(25, 15, 55, 0.85);
+
+    /* ── Light Mode ── */
+    --color-light-bg: #F8F7FC;
+    --color-light-surface: #FFFFFF;
+    --color-light-card: rgba(255, 255, 255, 0.9);
+
+    /* ── Neutral Text ── */
+    --color-text-light: #1E1B2E;
+    --color-text-light-secondary: #5A5472;
+    --color-text-dark: #EDE8FC;
+    --color-text-dark-secondary: #A89DC8;
+}
+
+/* ============================================================
+   ROOT CSS VARIABLES & MODE SWITCHING
+   ============================================================ */
+
+:root {
+    --wayfs-bg: var(--color-light-bg);
+    --wayfs-surface: var(--color-light-surface);
+    --wayfs-card: var(--color-light-card);
+    --wayfs-text: var(--color-text-light);
+    --wayfs-text-secondary: var(--color-text-light-secondary);
+    --wayfs-border: rgba(86, 52, 186, 0.15);
+
+    color-scheme: light dark;
+}
+
+.dark {
+    --wayfs-bg: var(--color-dark-bg);
+    --wayfs-surface: var(--color-dark-surface);
+    --wayfs-card: var(--color-dark-card);
+    --wayfs-text: var(--color-text-dark);
+    --wayfs-text-secondary: var(--color-text-dark-secondary);
+    --wayfs-border: rgba(72, 198, 203, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+        --wayfs-bg: var(--color-dark-bg);
+        --wayfs-surface: var(--color-dark-surface);
+        --wayfs-card: var(--color-dark-card);
+        --wayfs-text: var(--color-text-dark);
+        --wayfs-text-secondary: var(--color-text-dark-secondary);
+        --wayfs-border: rgba(72, 198, 203, 0.2);
+    }
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+body {
+    background: var(--wayfs-bg);
+    color: var(--wayfs-text);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    transition: background 0.4s ease, color 0.3s ease;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ============================================================
+   TEXT GRADIENT UTILITIES
+   ============================================================ */
+
+/* Primary brand gradient: #5634BA → #560DDE */
+.text-gradient-brand {
+    background: linear-gradient(135deg, #5634BA, #560DDE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Danger gradient: #922B2B → #AF3F00 */
+.text-gradient-danger {
+    background: linear-gradient(135deg, #922B2B, #AF3F00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Lime accent text */
+.text-gradient-lime {
+    background: linear-gradient(135deg, #96A80D, #B8D40E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Full spectrum gradient: brand → danger → lime */
+.text-gradient-full {
+    background: linear-gradient(135deg, #5634BA, #560DDE, #922B2B, #AF3F00, #96A80D);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Hover shimmer animation for gradient text */
+.text-gradient-brand,
+.text-gradient-danger,
+.text-gradient-lime,
+.text-gradient-full {
+    background-size: 200% 200%;
+    transition: background-position 0.5s ease;
+}
+
+.text-gradient-brand:hover,
+.text-gradient-danger:hover,
+.text-gradient-lime:hover,
+.text-gradient-full:hover {
+    background-position: 100% 100%;
+}
+
+/* ============================================================
+   BUTTON STYLES (comp palette)
+   ============================================================ */
+
+.btn-wayfs {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-wayfs::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-wayfs:hover::before {
+    opacity: 1;
+}
+
+/* Primary CTA — teal→cyan gradient */
+.btn-primary {
+    background: linear-gradient(135deg, #316D70, #48C6CB);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(49, 109, 112, 0.35);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(49, 109, 112, 0.5);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Secondary — magenta→green gradient */
+.btn-secondary {
+    background: linear-gradient(135deg, #C914C7, #16FF4B);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(201, 20, 199, 0.3);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(201, 20, 199, 0.45);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* Outline — teal border */
+.btn-outline {
+    background: transparent;
+    color: #48C6CB;
+    border: 2px solid #48C6CB;
+    box-shadow: none;
+}
+
+.btn-outline:hover {
+    background: rgba(72, 198, 203, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(72, 198, 203, 0.2);
+}
+
+/* Danger button — danger gradient */
+.btn-danger {
+    background: linear-gradient(135deg, #922B2B, #AF3F00);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(146, 43, 43, 0.3);
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(146, 43, 43, 0.45);
+}
+
+/* Success — lime */
+.btn-success {
+    background: linear-gradient(135deg, #96A80D, #16FF4B);
+    color: #0D0520;
+    box-shadow: 0 4px 15px rgba(150, 168, 13, 0.3);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(150, 168, 13, 0.45);
+}
+
+/* ============================================================
+   NAV STYLES
+   ============================================================ */
+
+.nav-wayfs {
+    background: linear-gradient(135deg, #316D70, #48C6CB);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(49, 109, 112, 0.3);
+    position: relative;
+    z-index: 100;
+}
+
+.nav-wayfs .nav-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-wayfs .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-wayfs .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #16FF4B;
+    transition: width 0.3s ease;
+}
+
+.nav-wayfs .nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-wayfs .nav-link:hover::after {
+    width: 60%;
+}
+
+.nav-wayfs .nav-link.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-wayfs .nav-link.active::after {
+    width: 60%;
+    background: #C914C7;
+}
+
+/* ============================================================
+   CARD STYLES
+   ============================================================ */
+
+.card-wayfs {
+    background: var(--wayfs-card);
+    border: 1px solid var(--wayfs-border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-wayfs:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(86, 52, 186, 0.12);
+    border-color: rgba(86, 52, 186, 0.3);
+}
+
+.dark .card-wayfs:hover {
+    box-shadow: 0 12px 40px rgba(72, 198, 203, 0.15);
+    border-color: rgba(72, 198, 203, 0.3);
+}
+
+/* Card with left accent border */
+.card-wayfs.accent-brand {
+    border-left: 4px solid #5634BA;
+}
+
+.card-wayfs.accent-cyan {
+    border-left: 4px solid #48C6CB;
+}
+
+.card-wayfs.accent-magenta {
+    border-left: 4px solid #C914C7;
+}
+
+.card-wayfs.accent-green {
+    border-left: 4px solid #16FF4B;
+}
+
+.card-wayfs.accent-lime {
+    border-left: 4px solid #96A80D;
+}
+
+/* ============================================================
+   INPUT / FORM STYLES
+   ============================================================ */
+
+.input-wayfs {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 2px solid var(--wayfs-border);
+    background: var(--wayfs-surface);
+    color: var(--wayfs-text);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.input-wayfs:focus {
+    border-color: #48C6CB;
+    box-shadow: 0 0 0 3px rgba(72, 198, 203, 0.2);
+}
+
+.input-wayfs::placeholder {
+    color: var(--wayfs-text-secondary);
+    opacity: 0.7;
+}
+
+.label-wayfs {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--wayfs-text);
+    font-size: 0.9rem;
+}
+
+/* ============================================================
+   STATUS BADGES
+   ============================================================ */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.badge-todo {
+    background: linear-gradient(135deg, #316D70, #48C6CB);
+    color: #fff;
+}
+
+.badge-progress {
+    background: linear-gradient(135deg, #5634BA, #560DDE);
+    color: #fff;
+}
+
+.badge-done {
+    background: linear-gradient(135deg, #96A80D, #16FF4B);
+    color: #0D0520;
+}
+
+/* ============================================================
+   DARK MODE — ANIMATED BACKGROUND  (dark purple blobs)
+   ============================================================ */
+
+.dark body,
+.dark-bg-animated {
+    position: relative;
+}
+
+.dark-bg-animated::before,
+.dark-bg-animated::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.35;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.dark-bg-animated::before {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #5634BA, #560DDE, transparent 70%);
+    top: -10%;
+    left: -5%;
+    animation: floatBlob1 18s ease-in-out infinite;
+}
+
+.dark-bg-animated::after {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #C914C7, #316D70, transparent 70%);
+    bottom: -10%;
+    right: -5%;
+    animation: floatBlob2 22s ease-in-out infinite;
+}
+
+/* Third blob via a child element */
+.dark-bg-blob3 {
+    position: fixed;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #48C6CB, #16FF4B, transparent 70%);
+    filter: blur(130px);
+    opacity: 0.2;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    pointer-events: none;
+    animation: floatBlob3 25s ease-in-out infinite;
+}
+
+@keyframes floatBlob1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(80px, 60px) scale(1.1);
+    }
+
+    50% {
+        transform: translate(40px, 120px) scale(0.95);
+    }
+
+    75% {
+        transform: translate(-40px, 50px) scale(1.05);
+    }
+}
+
+@keyframes floatBlob2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(-60px, -80px) scale(1.08);
+    }
+
+    50% {
+        transform: translate(-100px, -40px) scale(0.9);
+    }
+
+    75% {
+        transform: translate(30px, -60px) scale(1.12);
+    }
+}
+
+@keyframes floatBlob3 {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    33% {
+        transform: translate(-40%, -60%) scale(1.15);
+    }
+
+    66% {
+        transform: translate(-60%, -40%) scale(0.85);
+    }
+}
+
+/* ============================================================
+   SECTION / PAGE LAYOUT UTILITIES
+   ============================================================ */
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: var(--wayfs-text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* ============================================================
+   TRACK ID DISPLAY
+   ============================================================ */
+
+.track-id {
+    font-family: 'Fira Code', 'JetBrains Mono', monospace;
+    background: linear-gradient(135deg, rgba(86, 52, 186, 0.1), rgba(72, 198, 203, 0.1));
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--wayfs-border);
+    user-select: all;
+    font-size: 0.85rem;
+}
+
+.dark .track-id {
+    background: linear-gradient(135deg, rgba(86, 52, 186, 0.2), rgba(72, 198, 203, 0.2));
+}
+
+/* ============================================================
+   SCROLLBAR CUSTOMIZATION (dark mode)
+   ============================================================ */
+
+.dark ::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: #0D0520;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #5634BA, #48C6CB);
+    border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #560DDE, #C914C7);
+}
+
+/* ============================================================
+   SELECTION HIGHLIGHT
+   ============================================================ */
+
+::selection {
+    background: rgba(86, 52, 186, 0.3);
+    color: inherit;
+}
+
+.dark ::selection {
+    background: rgba(72, 198, 203, 0.3);
+}
+
+/* ============================================================
+   THEME TOGGLE BUTTON
+   ============================================================ */
+
+.theme-toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #16FF4B;
+    transform: rotate(15deg) scale(1.1);
+}
+
+/* ============================================================
+   TRANSITIONS & MICRO-ANIMATIONS
+   ============================================================ */
+
+/* Fade-in on mount */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeInUp 0.5s ease-out both;
+}
+
+.animate-fade-in-delay-1 {
+    animation: fadeInUp 0.5s ease-out 0.1s both;
+}
+
+.animate-fade-in-delay-2 {
+    animation: fadeInUp 0.5s ease-out 0.2s both;
+}
+
+.animate-fade-in-delay-3 {
+    animation: fadeInUp 0.5s ease-out 0.3s both;
+}
+
+/* Pulse glow for important elements */
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px rgba(72, 198, 203, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(72, 198, 203, 0.6);
+    }
+}
+
+.glow-pulse {
+    animation: pulseGlow 3s ease-in-out infinite;
+}

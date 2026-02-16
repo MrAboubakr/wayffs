@@ -1,35 +1,38 @@
 <template>
-  <div class="flex min-h-screen items-center justify-center bg-gray-100">
-    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-      <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+  <div class="flex min-h-[calc(100vh-72px)] items-center justify-center p-4">
+    <div class="card-wayfs w-full max-w-md animate-fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-center text-gradient-brand">Login</h2>
       <form @submit.prevent="handleLogin">
         <div class="mb-4">
-          <label class="block text-gray-700">Email</label>
+          <label class="label-wayfs">Email</label>
           <input
             v-model="email"
             type="email"
-            class="w-full mt-2 p-2 border rounded-md"
+            class="input-wayfs"
+            placeholder="you@example.com"
             required
           />
         </div>
         <div class="mb-6">
-          <label class="block text-gray-700">Password</label>
+          <label class="label-wayfs">Password</label>
           <input
             v-model="password"
             type="password"
-            class="w-full mt-2 p-2 border rounded-md"
+            class="input-wayfs"
+            placeholder="••••••••"
             required
           />
         </div>
         <button
           type="submit"
-          class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          class="btn-wayfs btn-primary w-full"
         >
           Login
         </button>
       </form>
-      <p class="mt-4 text-center">
-        Don't have an account? <router-link to="/register" class="text-blue-500">Register</router-link>
+      <p class="mt-4 text-center text-sm" style="color: var(--wayfs-text-secondary);">
+        Don't have an account?
+        <router-link to="/register" class="text-gradient-brand font-semibold hover:underline">Register</router-link>
       </p>
     </div>
   </div>

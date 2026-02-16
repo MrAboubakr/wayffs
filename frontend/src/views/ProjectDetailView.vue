@@ -1,60 +1,74 @@
 <template>
-  <div class="p-6" v-if="project">
-    <div class="mb-6">
-      <router-link to="/" class="text-blue-500 hover:underline">&larr; Back to Dashboard</router-link>
-      <h1 class="text-3xl font-bold mt-2">{{ project.title }}</h1>
-      <p class="text-gray-600">{{ project.description }}</p>
-      <div class="mt-2 text-sm text-gray-500">
-        Track ID: <span class="font-mono bg-gray-100 p-1 select-all">{{ project.track_id }}</span>
+  <div class="page-container" v-if="project">
+    <div class="mb-6 animate-fade-in">
+      <router-link to="/" class="text-gradient-brand font-semibold hover:underline inline-flex items-center gap-1">
+        &larr; Back to Dashboard
+      </router-link>
+      <h1 class="text-3xl font-bold mt-3 text-gradient-brand">{{ project.title }}</h1>
+      <p style="color: var(--wayfs-text-secondary);" class="mt-1">{{ project.description }}</p>
+      <div class="mt-3 text-sm" style="color: var(--wayfs-text-secondary);">
+        Track ID: <span class="track-id">{{ project.track_id }}</span>
       </div>
     </div>
 
     <!-- Add Task (Owner Only) -->
-    <div v-if="project.is_owner" class="mb-8 p-4 bg-white rounded shadow">
-      <h2 class="text-xl font-semibold mb-4">Add Task</h2>
+    <div v-if="project.is_owner" class="card-wayfs mb-8 animate-fade-in-delay-1">
+      <h2 class="text-xl font-semibold mb-4 text-gradient-lime">Add Task</h2>
       <form @submit.prevent="createTask" class="flex gap-4">
-        <input v-model="newTaskTitle" placeholder="Task Title" class="border p-2 rounded flex-grow" required />
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add</button>
+        <input v-model="newTaskTitle" placeholder="Task Title" class="input-wayfs flex-grow" required />
+        <button type="submit" class="btn-wayfs btn-primary">Add</button>
       </form>
     </div>
 
     <!-- Task List -->
     <div class="space-y-4">
-      <div v-for="task in project.tasks" :key="task.id" class="bg-white p-4 rounded shadow">
+      <div
+        v-for="(task, index) in project.tasks"
+        :key="task.id"
+        class="card-wayfs"
+        :class="Number(index) < 1 ? 'animate-fade-in-delay-1' : Number(index) < 2 ? 'animate-fade-in-delay-2' : 'animate-fade-in-delay-3'"
+      >
         <div class="flex justify-between items-start">
           <div>
-            <h3 class="font-bold text-lg">{{ task.title }}</h3>
-            <span :class="statusClass(task.status)" class="text-xs px-2 py-1 rounded text-white inline-block mt-1">
-              {{ task.status }}
+            <h3 class="font-bold text-lg" style="color: var(--wayfs-text);">{{ task.title }}</h3>
+            <span :class="statusBadge(task.status)" class="badge mt-2">
+              {{ statusLabel(task.status) }}
             </span>
           </div>
           <!-- Owner Actions -->
-          <div v-if="project.is_owner" class="flex gap-2">
-             <select v-model="task.status" @change="updateTaskStatus(task)" class="border rounded p-1 text-sm">
+          <div v-if="project.is_owner" class="flex items-center gap-3">
+             <select v-model="task.status" @change="updateTaskStatus(task)" class="input-wayfs text-sm !p-1.5 !rounded-lg" style="width: auto;">
                 <option value="TODO">To Do</option>
                 <option value="IN_PROGRESS">In Progress</option>
                 <option value="DONE">Done</option>
              </select>
-             <button @click="deleteTask(task.id)" class="text-red-500 text-sm hover:underline">Delete</button>
+             <button @click="deleteTask(task.id)" class="text-gradient-danger font-semibold text-sm hover:underline cursor-pointer">Delete</button>
           </div>
         </div>
-        
+
         <!-- Comments Section -->
-        <div class="mt-4 border-t pt-2">
-           <h4 class="font-semibold text-sm mb-2">Comments</h4>
-           <div v-for="comment in task.comments" :key="comment.id" class="text-sm bg-gray-50 p-2 rounded mb-2">
-              <span class="font-bold">{{ comment.author.username }}:</span> {{ comment.content }}
+        <div class="mt-4 border-t pt-3" style="border-color: var(--wayfs-border);">
+           <h4 class="font-semibold text-sm mb-2" style="color: var(--wayfs-text-secondary);">Comments</h4>
+           <div
+             v-for="comment in task.comments"
+             :key="comment.id"
+             class="text-sm p-2 rounded-lg mb-2"
+             style="background: var(--wayfs-surface); color: var(--wayfs-text);"
+           >
+              <span class="font-bold text-gradient-brand">{{ comment.author.username }}:</span> {{ comment.content }}
            </div>
-           
+
            <form @submit.prevent="addComment(task.id)" class="mt-2 flex gap-2">
-             <input v-model="newComments[task.id]" placeholder="Add a comment..." class="border p-1 rounded flex-grow text-sm" />
-             <button type="submit" class="bg-gray-200 px-2 py-1 rounded text-sm hover:bg-gray-300">Post</button>
+             <input v-model="newComments[task.id]" placeholder="Add a comment..." class="input-wayfs text-sm flex-grow" />
+             <button type="submit" class="btn-wayfs btn-outline text-sm !px-3 !py-1.5">Post</button>
            </form>
         </div>
       </div>
     </div>
   </div>
-  <div v-else class="p-6 text-center">Loading...</div>
+  <div v-else class="page-container text-center py-20">
+    <p class="text-gradient-brand text-xl font-semibold">Loading...</p>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -78,7 +92,7 @@ const fetchProject = async () => {
 
 const createTask = async () => {
   try {
-    await api.post('tasks/', { 
+    await api.post('tasks/', {
         title: newTaskTitle.value,
         project: project.value.id
     });
@@ -119,12 +133,21 @@ const addComment = async (taskId: number) => {
     }
 }
 
-const statusClass = (status: string) => {
+const statusBadge = (status: string) => {
     switch(status) {
-        case 'TODO': return 'bg-gray-500';
-        case 'IN_PROGRESS': return 'bg-blue-500';
-        case 'DONE': return 'bg-green-500';
-        default: return 'bg-gray-500';
+        case 'TODO': return 'badge-todo';
+        case 'IN_PROGRESS': return 'badge-progress';
+        case 'DONE': return 'badge-done';
+        default: return 'badge-todo';
+    }
+}
+
+const statusLabel = (status: string) => {
+    switch(status) {
+        case 'TODO': return 'To Do';
+        case 'IN_PROGRESS': return 'In Progress';
+        case 'DONE': return 'Done';
+        default: return status;
     }
 }
 

@@ -1,52 +1,63 @@
 <template>
-  <div class="p-6">
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold">Dashboard</h1>
-      <button @click="authStore.logout()" class="text-red-500 hover:text-red-700">Logout</button>
+  <div class="page-container">
+    <div class="flex justify-between items-center mb-8 animate-fade-in">
+      <h1 class="section-title text-gradient-brand">Dashboard</h1>
     </div>
 
     <!-- Create Project Section -->
-    <div class="mb-8 p-4 bg-white rounded shadow">
-      <h2 class="text-xl font-semibold mb-4">Create New Project</h2>
+    <div class="card-wayfs mb-6 animate-fade-in-delay-1">
+      <h2 class="text-xl font-semibold mb-4 text-gradient-lime">Create New Project</h2>
       <form @submit.prevent="createProject" class="flex gap-4">
-        <input v-model="newProjectTitle" placeholder="Project Title" class="border p-2 rounded flex-grow" required />
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Create</button>
+        <input v-model="newProjectTitle" placeholder="Project Title" class="input-wayfs flex-grow" required />
+        <button type="submit" class="btn-wayfs btn-primary">Create</button>
       </form>
     </div>
 
     <!-- Track Project Section -->
-    <div class="mb-8 p-4 bg-white rounded shadow">
-      <h2 class="text-xl font-semibold mb-4">Track a Project</h2>
+    <div class="card-wayfs mb-8 animate-fade-in-delay-2">
+      <h2 class="text-xl font-semibold mb-4 text-gradient-danger">Track a Project</h2>
       <form @submit.prevent="trackProject" class="flex gap-4">
-        <input v-model="trackIdInput" placeholder="Enter Track ID" class="border p-2 rounded flex-grow" required />
-        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Track</button>
+        <input v-model="trackIdInput" placeholder="Enter Track ID" class="input-wayfs flex-grow" required />
+        <button type="submit" class="btn-wayfs btn-success">Track</button>
       </form>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- My Projects -->
-      <div>
-        <h2 class="text-2xl font-semibold mb-4">My Projects</h2>
-        <div v-if="myProjects.length === 0" class="text-gray-500">No projects created yet.</div>
+      <div class="animate-fade-in-delay-3">
+        <h2 class="text-2xl font-semibold mb-4 text-gradient-brand">My Projects</h2>
+        <div v-if="myProjects.length === 0" style="color: var(--wayfs-text-secondary);">No projects created yet.</div>
         <div v-else class="space-y-4">
-          <div v-for="project in myProjects" :key="project.id" class="bg-white p-4 rounded shadow border-l-4 border-blue-500">
-            <h3 class="font-bold text-lg">{{ project.title }}</h3>
-            <p class="text-sm text-gray-600">Track ID: <span class="font-mono bg-gray-100 p-1">{{ project.track_id }}</span></p>
-            <p class="text-sm text-gray-500 mt-2">{{ project.tasks.length }} Tasks</p>
-          </div>
+          <router-link
+            v-for="project in myProjects"
+            :key="project.id"
+            :to="`/projects/${project.id}`"
+            class="block card-wayfs accent-brand"
+          >
+            <h3 class="font-bold text-lg" style="color: var(--wayfs-text);">{{ project.title }}</h3>
+            <p class="text-sm mt-1" style="color: var(--wayfs-text-secondary);">
+              Track ID: <span class="track-id">{{ project.track_id }}</span>
+            </p>
+            <p class="text-sm mt-2" style="color: var(--wayfs-text-secondary);">{{ project.tasks.length }} Tasks</p>
+          </router-link>
         </div>
       </div>
 
       <!-- Following Projects -->
-      <div>
-        <h2 class="text-2xl font-semibold mb-4">Following</h2>
-        <div v-if="followingProjects.length === 0" class="text-gray-500">Not following any projects.</div>
+      <div class="animate-fade-in-delay-3">
+        <h2 class="text-2xl font-semibold mb-4 text-gradient-lime">Following</h2>
+        <div v-if="followingProjects.length === 0" style="color: var(--wayfs-text-secondary);">Not following any projects.</div>
         <div v-else class="space-y-4">
-          <div v-for="project in followingProjects" :key="project.id" class="bg-white p-4 rounded shadow border-l-4 border-green-500">
-            <h3 class="font-bold text-lg">{{ project.title }}</h3>
-            <p class="text-sm text-gray-600">Owner: {{ project.owner.username }}</p>
-            <p class="text-sm text-gray-500 mt-2">{{ project.tasks.length }} Tasks</p>
-          </div>
+          <router-link
+            v-for="project in followingProjects"
+            :key="project.id"
+            :to="`/projects/${project.id}`"
+            class="block card-wayfs accent-cyan"
+          >
+            <h3 class="font-bold text-lg" style="color: var(--wayfs-text);">{{ project.title }}</h3>
+            <p class="text-sm mt-1" style="color: var(--wayfs-text-secondary);">Owner: {{ project.owner.username }}</p>
+            <p class="text-sm mt-2" style="color: var(--wayfs-text-secondary);">{{ project.tasks.length }} Tasks</p>
+          </router-link>
         </div>
       </div>
     </div>
@@ -55,10 +66,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import { useAuthStore } from '../stores/auth';
 import api from '../api';
 
-const authStore = useAuthStore();
 const projects = ref<any[]>([]);
 const newProjectTitle = ref('');
 const trackIdInput = ref('');
@@ -93,8 +102,6 @@ const trackProject = async () => {
 };
 
 const myProjects = computed(() => {
-    // Ideally backend flags ownership or we compare ID
-    // Since serializer has is_owner field now
     return projects.value.filter(p => p.is_owner);
 });
 
