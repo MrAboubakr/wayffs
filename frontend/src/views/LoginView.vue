@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-[calc(100vh-72px)] items-center justify-center p-4">
+  <div class="flex min-h-[calc(100vh-140px)] items-center justify-center p-4">
     <div class="card-wayfs w-full max-w-md animate-fade-in">
       <h2 class="text-2xl font-bold mb-6 text-center text-gradient-brand">Login</h2>
       <form @submit.prevent="handleLogin">

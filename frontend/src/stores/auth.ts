@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', {
                 localStorage.setItem('refresh_token', refresh);
                 this.isAuthenticated = true;
                 await this.fetchUser();
-                router.push('/');
+                router.push('/dashboard');
             } catch (error) {
                 console.error('Login failed', error);
                 throw error;

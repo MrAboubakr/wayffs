@@ -1,8 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import DashboardView from '../views/DashboardView.vue'
-import LoginView from '../views/LoginView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import ProjectDetailView from '../views/ProjectDetailView.vue'
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
@@ -10,30 +6,47 @@ const router = createRouter({
     routes: [
         {
             path: '/',
+            name: 'home',
+            component: () => import('../views/HomeView.vue'),
+            beforeEnter: (_to, _from, next) => {
+                const authStore = useAuthStore()
+                if (authStore.isAuthenticated) {
+                    next({ name: 'dashboard' })
+                } else {
+                    next()
+                }
+            }
+        },
+        {
+            path: '/dashboard',
             name: 'dashboard',
-            component: DashboardView,
+            component: () => import('../views/DashboardView.vue'),
             meta: { requiresAuth: true }
         },
         {
             path: '/projects/:id',
             name: 'project-detail',
-            component: ProjectDetailView,
+            component: () => import('../views/ProjectDetailView.vue'),
             meta: { requiresAuth: true }
         },
         {
             path: '/login',
             name: 'login',
-            component: LoginView
+            component: () => import('../views/LoginView.vue')
         },
         {
             path: '/register',
             name: 'register',
-            component: RegisterView
+            component: () => import('../views/RegisterView.vue')
         }
-    ]
+    ],
+    scrollBehavior(_to, _from, savedPosition) {
+        if (savedPosition) return savedPosition
+        return { top: 0 }
+    }
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
     const authStore = useAuthStore()
     if (to.meta.requiresAuth && !authStore.isAuthenticated) {
         next('/login')
