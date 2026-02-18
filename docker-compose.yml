@@ -5,11 +5,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=wayffsDB
-      - POSTGRES_USER=wayffs
-      - POSTGRES_PASSWORD=wayfs900
+      - POSTGRES_DB=${SQL_DATABASE}
+      - POSTGRES_USER=${SQL_USER}
+      - POSTGRES_PASSWORD=${SQL_PASSWORD}
     ports:
-      - "5434:5432"
+      - "${DB_PORT}:5432"
 
   backend:
     build: ./backend
@@ -19,15 +19,15 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DEBUG=1
-      - SECRET_KEY=dev_secret_key
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-      - SQL_ENGINE=django.db.backends.postgresql
-      - SQL_DATABASE=wayfs
-      - SQL_USER=postgres
-      - SQL_PASSWORD=postgres
-      - SQL_HOST=db
-      - SQL_PORT=5432
+      - DEBUG=${DEBUG}
+      - SECRET_KEY=${SECRET_KEY}
+      - DJANGO_ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - SQL_ENGINE=${SQL_ENGINE}
+      - SQL_DATABASE=${SQL_DATABASE}
+      - SQL_USER=${SQL_USER}
+      - SQL_PASSWORD=${SQL_PASSWORD}
+      - SQL_HOST=${SQL_HOST}
+      - SQL_PORT=${SQL_PORT}
     depends_on:
       - db
 

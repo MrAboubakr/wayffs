@@ -14,7 +14,9 @@ dist/
 # IDE configuration
 .vscode/
 .idea/
+.agent/
 
 # Sensitive
 virtualAdminPanel.md
+architecture-requirements.txt
 
