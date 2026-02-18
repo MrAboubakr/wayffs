@@ -54,16 +54,22 @@ else
 fi
 
 # 3. Start Frontend
-echo "Starting Frontend..."
-# Check if something is already running on 5173
-if lsof -Pi :5173 -sTCP:LISTEN -t >/dev/null ; then
-    echo "Warning: Something is already running on port 5173. Skipping frontend start."
+if [ "$SKIP_FRONTEND" = "1" ]; then
+    echo "Skipping Frontend (SKIP_FRONTEND=1)..."
+elif [ ! -d "frontend" ]; then
+    echo "Skipping Frontend (frontend directory not found)..."
 else
-    cd frontend
-    # Use --port 5173 to ensure it doesn't jump to 5174
-    npm run dev -- --port 5173 &
-    FRONTEND_PID=$!
-    cd ..
+    echo "Starting Frontend..."
+    # Check if something is already running on 5173
+    if lsof -Pi :5173 -sTCP:LISTEN -t >/dev/null ; then
+        echo "Warning: Something is already running on port 5173. Skipping frontend start."
+    else
+        cd frontend
+        # Use --port 5173 to ensure it doesn't jump to 5174
+        npm run dev -- --port 5173 &
+        FRONTEND_PID=$!
+        cd ..
+    fi
 fi
 
 echo ""
