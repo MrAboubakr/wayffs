@@ -21,3 +21,5 @@ dist/
 virtualAdminPanel.md
 architecture-requirements.txt
 
+# SSL Certificates (generated on server)
+certbot/
