@@ -4,7 +4,7 @@ upstream django {
 
 server {
     listen 80;
-    server_name wayffs-api.edioq.com;
+    server_name ${API_DOMAIN};
 
     # Max upload size
     client_max_body_size 10M;

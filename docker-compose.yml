@@ -45,6 +45,18 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
 
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template
+      - ./backend/staticfiles:/app/staticfiles
+    environment:
+      - API_DOMAIN=${API_DOMAIN}
+    depends_on:
+      - backend
+
 networks:
   default:
     name: wayffs_network
