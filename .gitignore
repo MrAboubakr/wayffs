@@ -5,6 +5,7 @@ __pycache__/
 venv/
 .env
 db.sqlite3
+.env.prod
 
 # Node
 node_modules/

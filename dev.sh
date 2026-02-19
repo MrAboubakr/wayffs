@@ -15,6 +15,16 @@ cleanup() {
 # Trap SIGINT (Ctrl+C) and SIGTERM
 trap cleanup SIGINT SIGTERM
 
+# Handle Production Mode
+if [ "$1" == "--prod" ]; then
+    echo "Starting Wayffs Production Environment (Docker)..."
+    docker compose -f docker-compose.prod.yml up -d
+    echo ""
+    echo "Production services are starting in the background."
+    echo "Check logs with: docker compose -f docker-compose.prod.yml logs -f"
+    exit 0
+fi
+
 echo "Starting Wayffs Development Environment..."
 
 # 1. Start Database (PostgreSQL)
