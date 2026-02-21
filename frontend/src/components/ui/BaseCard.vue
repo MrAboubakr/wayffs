@@ -34,18 +34,18 @@ const accentClass = computed(() => {
 
 .base-card--hoverable:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(86, 52, 186, 0.12);
-  border-color: rgba(86, 52, 186, 0.3);
+  box-shadow: 0 12px 40px rgba(13, 150, 71, 0.12);
+  border-color: rgba(13, 150, 71, 0.3);
 }
 
 :global(.dark) .base-card--hoverable:hover {
-  box-shadow: 0 12px 40px rgba(72, 198, 203, 0.15);
-  border-color: rgba(72, 198, 203, 0.3);
+  box-shadow: 0 12px 40px rgba(245, 184, 0, 0.15);
+  border-color: rgba(245, 184, 0, 0.3);
 }
 
-.base-card--accent-brand { border-left: 4px solid #5634BA; }
-.base-card--accent-cyan { border-left: 4px solid #48C6CB; }
-.base-card--accent-magenta { border-left: 4px solid #C914C7; }
-.base-card--accent-green { border-left: 4px solid #16FF4B; }
-.base-card--accent-lime { border-left: 4px solid #96A80D; }
+.base-card--accent-brand { border-left: 4px solid #0D9647; }
+.base-card--accent-cyan { border-left: 4px solid #10B860; }
+.base-card--accent-magenta { border-left: 4px solid #F5B800; }
+.base-card--accent-green { border-left: 4px solid #22C55E; }
+.base-card--accent-lime { border-left: 4px solid #0D9647; }
 </style>

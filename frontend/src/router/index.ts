@@ -30,6 +30,36 @@ const router = createRouter({
             meta: { requiresAuth: true }
         },
         {
+            path: '/tasks',
+            name: 'tasks',
+            component: () => import('../views/TasksView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/analytics',
+            name: 'analytics',
+            component: () => import('../views/AnalyticsView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/activity',
+            name: 'activity',
+            component: () => import('../views/ActivityView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/profile',
+            name: 'profile',
+            component: () => import('../views/ProfileView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/settings',
+            name: 'settings',
+            component: () => import('../views/SettingsView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
             path: '/login',
             name: 'login',
             component: () => import('../views/LoginView.vue')

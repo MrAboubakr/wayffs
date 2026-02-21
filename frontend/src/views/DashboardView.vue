@@ -15,19 +15,19 @@
         icon="✅"
         label="Total Tasks"
         :value="totalTasks"
-        icon-bg="linear-gradient(135deg, #96A80D, #16FF4B)"
+        icon-bg="linear-gradient(135deg, #0D9647, #22C55E)"
       />
       <StatCard
         icon="👥"
         label="Following"
         :value="followingProjects.length"
-        icon-bg="linear-gradient(135deg, #5634BA, #560DDE)"
+        icon-bg="linear-gradient(135deg, #0D9647, #10B860)"
       />
       <StatCard
         icon="📊"
         label="My Projects"
         :value="myProjects.length"
-        icon-bg="linear-gradient(135deg, #C914C7, #560DDE)"
+        icon-bg="linear-gradient(135deg, #F5B800, #10B860)"
       />
     </div>
 
@@ -282,13 +282,13 @@ onMounted(() => {
 
 .dashboard__project-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(86, 52, 186, 0.1);
-  border-color: rgba(86, 52, 186, 0.25);
+  box-shadow: 0 8px 24px rgba(13, 150, 71, 0.1);
+  border-color: rgba(13, 150, 71, 0.25);
 }
 
 :global(.dark) .dashboard__project-card:hover {
-  box-shadow: 0 8px 24px rgba(72, 198, 203, 0.1);
-  border-color: rgba(72, 198, 203, 0.25);
+  box-shadow: 0 8px 24px rgba(245, 184, 0, 0.1);
+  border-color: rgba(245, 184, 0, 0.25);
 }
 
 .dashboard__project-header {

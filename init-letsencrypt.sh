@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # =============================================================================
-# init-letsencrypt.sh — One-time SSL bootstrap for wayffs-api.edioq.com
+# init-letsencrypt.sh — One-time SSL bootstrap for wayffs-api.??.com
 # =============================================================================
 # Run this script ONCE on the EC2 server to obtain the initial SSL certificate.
 # After that, the certbot container in docker-compose.prod.yml handles renewals.

@@ -4,7 +4,7 @@
       <!-- Brand column -->
       <div class="footer__col footer__col--brand">
         <div class="footer__brand">
-          <span class="footer__logo">W</span>
+          <img src="/images/wayffs.jpg" alt="Wayffs" class="footer__logo" />
           <span class="footer__brand-text">Wayffs</span>
         </div>
         <p class="footer__description">
@@ -64,6 +64,18 @@ const currentYear = new Date().getFullYear();
   border-top: 1px solid var(--wayfs-border);
   padding: 3rem 1.5rem 1.5rem;
   margin-top: auto;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #F5B800, #A8D400, #10B860, transparent);
+  opacity: 0.6;
 }
 
 :global(.dark) .footer {
@@ -81,7 +93,7 @@ const currentYear = new Date().getFullYear();
 .footer__brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
   margin-bottom: 0.75rem;
 }
 
@@ -89,19 +101,14 @@ const currentYear = new Date().getFullYear();
   width: 32px;
   height: 32px;
   border-radius: 0.5rem;
-  background: linear-gradient(135deg, #5634BA, #560DDE);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 1rem;
-  color: #fff;
+  object-fit: contain;
 }
 
 .footer__brand-text {
-  font-weight: 800;
-  font-size: 1.15rem;
-  background: linear-gradient(135deg, #5634BA, #560DDE);
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: 0.03em;
+  background: linear-gradient(135deg, #F5B800, #A8D400, #10B860);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -133,9 +140,9 @@ const currentYear = new Date().getFullYear();
 }
 
 .footer__social-link:hover {
-  color: #48C6CB;
-  border-color: #48C6CB;
-  background: rgba(72, 198, 203, 0.06);
+  color: #10B860;
+  border-color: #10B860;
+  background: rgba(245, 184, 0, 0.06);
 }
 
 .footer__heading {
@@ -157,7 +164,7 @@ const currentYear = new Date().getFullYear();
 }
 
 .footer__link:hover {
-  color: #48C6CB;
+  color: #10B860;
 }
 
 .footer__bottom {

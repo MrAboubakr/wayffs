@@ -3,8 +3,8 @@
     <div class="navbar__inner">
       <!-- Left section -->
       <div class="navbar__left">
-        <router-link to="/" class="navbar__brand">
-          <span class="navbar__logo">W</span>
+        <router-link :to="authStore.isAuthenticated ? '/dashboard' : '/'" class="navbar__brand">
+          <img src="/images/wayffs.jpg" alt="Wayffs" class="navbar__logo" />
           <span class="navbar__brand-text">Wayffs</span>
         </router-link>
 
@@ -12,6 +12,20 @@
           <router-link to="/" class="navbar__link" active-class="navbar__link--active" @click="closeMobile">
             Home
           </router-link>
+          <template v-if="authStore.isAuthenticated">
+            <router-link to="/dashboard" class="navbar__link" active-class="navbar__link--active" @click="closeMobile">
+              Dashboard
+            </router-link>
+            <router-link to="/tasks" class="navbar__link" active-class="navbar__link--active" @click="closeMobile">
+              Tasks
+            </router-link>
+            <router-link to="/analytics" class="navbar__link" active-class="navbar__link--active" @click="closeMobile">
+              Analytics
+            </router-link>
+            <router-link to="/activity" class="navbar__link" active-class="navbar__link--active" @click="closeMobile">
+              Activity
+            </router-link>
+          </template>
           <template v-if="!authStore.isAuthenticated">
             <a href="#features" class="navbar__link" @click="closeMobile">Discover</a>
             <a href="#about" class="navbar__link" @click="closeMobile">About</a>
@@ -86,13 +100,13 @@ onBeforeUnmount(() => {
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(86, 52, 186, 0.08);
+  border-bottom: 1px solid rgba(13, 150, 71, 0.08);
   transition: all 0.3s ease;
 }
 
 :global(.dark) .navbar {
-  background: rgba(13, 5, 32, 0.8);
-  border-bottom-color: rgba(72, 198, 203, 0.1);
+  background: rgba(10, 26, 15, 0.8);
+  border-bottom-color: rgba(245, 184, 0, 0.1);
 }
 
 .navbar--scrolled {
@@ -129,19 +143,14 @@ onBeforeUnmount(() => {
   width: 36px;
   height: 36px;
   border-radius: 0.5rem;
-  background: linear-gradient(135deg, #5634BA, #560DDE);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 1.1rem;
-  color: #fff;
+  object-fit: contain;
 }
 
 .navbar__brand-text {
-  font-weight: 800;
-  font-size: 1.25rem;
-  background: linear-gradient(135deg, #5634BA, #560DDE);
+  font-weight: 900;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #F5B800, #A8D400, #10B860);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -165,22 +174,22 @@ onBeforeUnmount(() => {
 
 .navbar__link:hover {
   color: var(--wayfs-text);
-  background: rgba(86, 52, 186, 0.06);
+  background: rgba(13, 150, 71, 0.06);
 }
 
 :global(.dark) .navbar__link:hover {
-  background: rgba(72, 198, 203, 0.08);
+  background: rgba(245, 184, 0, 0.08);
 }
 
 .navbar__link--active {
-  color: #5634BA;
-  background: rgba(86, 52, 186, 0.1);
+  color: #0D9647;
+  background: rgba(13, 150, 71, 0.1);
   font-weight: 600;
 }
 
 :global(.dark) .navbar__link--active {
-  color: #48C6CB;
-  background: rgba(72, 198, 203, 0.12);
+  color: #10B860;
+  background: rgba(245, 184, 0, 0.12);
 }
 
 .navbar__right {
@@ -204,12 +213,12 @@ onBeforeUnmount(() => {
 }
 
 .navbar__icon-btn:hover {
-  background: rgba(86, 52, 186, 0.06);
+  background: rgba(13, 150, 71, 0.06);
   transform: scale(1.05);
 }
 
 :global(.dark) .navbar__icon-btn:hover {
-  background: rgba(72, 198, 203, 0.08);
+  background: rgba(245, 184, 0, 0.08);
 }
 
 .navbar__notification-btn {
@@ -223,7 +232,7 @@ onBeforeUnmount(() => {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #C914C7;
+  background: #F5B800;
   border: 2px solid var(--wayfs-surface);
 }
 
@@ -238,7 +247,7 @@ onBeforeUnmount(() => {
 }
 
 .navbar__auth-link:hover {
-  background: rgba(86, 52, 186, 0.06);
+  background: rgba(13, 150, 71, 0.06);
 }
 
 .navbar__auth-btn {
@@ -248,14 +257,14 @@ onBeforeUnmount(() => {
   font-size: 0.9rem;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(135deg, #5634BA, #560DDE);
+  background: linear-gradient(135deg, #0D9647, #10B860);
   transition: all 0.2s ease;
-  box-shadow: 0 2px 10px rgba(86, 52, 186, 0.3);
+  box-shadow: 0 2px 10px rgba(13, 150, 71, 0.3);
 }
 
 .navbar__auth-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(86, 52, 186, 0.4);
+  box-shadow: 0 4px 16px rgba(13, 150, 71, 0.4);
 }
 
 /* Hamburger */

@@ -55,7 +55,7 @@ const isCollapsed = ref(false);
 const isMobileOpen = ref(false);
 
 const menuItems = [
-  { icon: '📊', label: 'Dashboard', to: '/' },
+  { icon: '📊', label: 'Dashboard', to: '/dashboard' },
   { icon: '📁', label: 'Projects', to: '/projects' },
   { icon: '✅', label: 'Tasks', to: '/tasks' },
   { icon: '📈', label: 'Analytics', to: '/analytics' },
@@ -115,7 +115,7 @@ defineExpose({ toggleMobile });
 
 .sidebar__toggle:hover {
   color: var(--wayfs-text);
-  border-color: #48C6CB;
+  border-color: #10B860;
 }
 
 .sidebar__toggle svg {
@@ -146,22 +146,22 @@ defineExpose({ toggleMobile });
 
 .sidebar__item:hover {
   color: var(--wayfs-text);
-  background: rgba(86, 52, 186, 0.06);
+  background: rgba(13, 150, 71, 0.06);
 }
 
 :global(.dark) .sidebar__item:hover {
-  background: rgba(72, 198, 203, 0.08);
+  background: rgba(245, 184, 0, 0.08);
 }
 
 .sidebar__item--active {
-  color: #5634BA;
-  background: rgba(86, 52, 186, 0.1);
+  color: #0D9647;
+  background: rgba(13, 150, 71, 0.1);
   font-weight: 600;
 }
 
 :global(.dark) .sidebar__item--active {
-  color: #48C6CB;
-  background: rgba(72, 198, 203, 0.12);
+  color: #10B860;
+  background: rgba(245, 184, 0, 0.12);
 }
 
 .sidebar__icon {

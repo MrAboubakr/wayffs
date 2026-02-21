@@ -17,7 +17,7 @@ withDefaults(defineProps<{
   value: string | number;
   iconBg?: string;
 }>(), {
-  iconBg: 'linear-gradient(135deg, #316D70, #48C6CB)',
+  iconBg: 'linear-gradient(135deg, #0A7B3B, #10B860)',
 });
 </script>
 
@@ -37,11 +37,11 @@ withDefaults(defineProps<{
 
 .stat-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(86, 52, 186, 0.12);
+  box-shadow: 0 12px 40px rgba(13, 150, 71, 0.12);
 }
 
 :global(.dark) .stat-card:hover {
-  box-shadow: 0 12px 40px rgba(72, 198, 203, 0.15);
+  box-shadow: 0 12px 40px rgba(245, 184, 0, 0.15);
 }
 
 .stat-card__icon {

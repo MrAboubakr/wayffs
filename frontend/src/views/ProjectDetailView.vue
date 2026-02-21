@@ -221,7 +221,7 @@ onMounted(() => {
 .project-detail__back {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #5634BA;
+  color: #0D9647;
   text-decoration: none;
   transition: all 0.2s ease;
   display: inline-block;
@@ -229,7 +229,7 @@ onMounted(() => {
 }
 
 :global(.dark) .project-detail__back {
-  color: #48C6CB;
+  color: #10B860;
 }
 
 .project-detail__back:hover {
@@ -336,7 +336,7 @@ onMounted(() => {
 .project-detail__comment {
   font-size: 0.85rem;
   padding: 0.5rem 0.75rem;
-  background: rgba(86, 52, 186, 0.04);
+  background: rgba(13, 150, 71, 0.04);
   border-radius: 0.5rem;
   line-height: 1.4;
 }
@@ -347,12 +347,12 @@ onMounted(() => {
 
 .project-detail__comment-author {
   font-weight: 700;
-  color: #5634BA;
+  color: #0D9647;
   margin-right: 0.5rem;
 }
 
 :global(.dark) .project-detail__comment-author {
-  color: #48C6CB;
+  color: #10B860;
 }
 
 .project-detail__comment-form {
@@ -367,14 +367,14 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   padding: 5rem 0;
-  color: #5634BA;
+  color: #0D9647;
 }
 
 .project-detail__spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid rgba(86, 52, 186, 0.1);
-  border-left-color: #5634BA;
+  border: 4px solid rgba(13, 150, 71, 0.1);
+  border-left-color: #0D9647;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;

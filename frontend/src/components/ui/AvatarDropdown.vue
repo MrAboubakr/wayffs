@@ -109,7 +109,7 @@ onBeforeUnmount(() => {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #5634BA, #560DDE);
+  background: linear-gradient(135deg, #0D9647, #10B860);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -172,7 +172,7 @@ onBeforeUnmount(() => {
   letter-spacing: 0.04em;
   padding: 0.1rem 0.5rem;
   border-radius: 9999px;
-  background: linear-gradient(135deg, #316D70, #48C6CB);
+  background: linear-gradient(135deg, #0A7B3B, #10B860);
   color: #fff;
 }
 
@@ -201,12 +201,12 @@ onBeforeUnmount(() => {
 }
 
 .avatar-dropdown__item:hover {
-  background: rgba(72, 198, 203, 0.1);
+  background: rgba(245, 184, 0, 0.1);
 }
 
 .avatar-dropdown__item--danger:hover {
   background: rgba(146, 43, 43, 0.1);
-  color: #AF3F00;
+  color: #E04B1A;
 }
 
 /* Dropdown transition */

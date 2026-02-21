@@ -1,39 +1,44 @@
 @import "tailwindcss";
 
 /* ============================================================
-   WAYFS CUSTOM DESIGN SYSTEM
+   WAYFS CUSTOM DESIGN SYSTEM — Yellow & Green Identity
    ============================================================ */
 
 @theme {
-    /* ── Text Gradient Colors ── */
-    --color-brand-primary: #5634BA;
-    --color-brand-accent: #560DDE;
-    --color-danger-start: #922B2B;
-    --color-danger-end: #AF3F00;
-    --color-lime-accent: #96A80D;
+    /* ── Brand Primary (Yellow) ── */
+    --color-brand-primary: #F5B800;
+    --color-brand-accent: #FFD700;
+
+    /* ── Brand Secondary (Green) ── */
+    --color-green-primary: #0D9647;
+    --color-green-accent: #10B860;
+
+    /* ── Warm Danger (deep amber → burnt orange) ── */
+    --color-danger-start: #C13A2A;
+    --color-danger-end: #E04B1A;
 
     /* ── Component / Button / Nav Colors ── */
-    --color-comp-teal: #316D70;
-    --color-comp-cyan: #48C6CB;
-    --color-comp-magenta: #C914C7;
-    --color-comp-green: #16FF4B;
+    --color-comp-green-dark: #0A7B3B;
+    --color-comp-green: #10B860;
+    --color-comp-yellow: #F5B800;
+    --color-comp-yellow-light: #FFD700;
 
-    /* ── Dark Mode Background ── */
-    --color-dark-bg: #0D0520;
-    --color-dark-surface: #150A30;
-    --color-dark-surface-2: #1A0E3A;
-    --color-dark-card: rgba(25, 15, 55, 0.85);
+    /* ── Dark Mode Background (deep forest) ── */
+    --color-dark-bg: #0A1A0F;
+    --color-dark-surface: #0F2518;
+    --color-dark-surface-2: #132E1D;
+    --color-dark-card: rgba(15, 37, 24, 0.88);
 
     /* ── Light Mode ── */
-    --color-light-bg: #F8F7FC;
+    --color-light-bg: #FAFDF6;
     --color-light-surface: #FFFFFF;
-    --color-light-card: rgba(255, 255, 255, 0.9);
+    --color-light-card: rgba(255, 255, 255, 0.92);
 
     /* ── Neutral Text ── */
-    --color-text-light: #1E1B2E;
-    --color-text-light-secondary: #5A5472;
-    --color-text-dark: #EDE8FC;
-    --color-text-dark-secondary: #A89DC8;
+    --color-text-light: #1B2E1F;
+    --color-text-light-secondary: #4A6B52;
+    --color-text-dark: #E8F5E0;
+    --color-text-dark-secondary: #A3C9AA;
 }
 
 /* ============================================================
@@ -46,7 +51,7 @@
     --wayfs-card: var(--color-light-card);
     --wayfs-text: var(--color-text-light);
     --wayfs-text-secondary: var(--color-text-light-secondary);
-    --wayfs-border: rgba(86, 52, 186, 0.15);
+    --wayfs-border: rgba(13, 150, 71, 0.15);
 
     color-scheme: light dark;
 }
@@ -57,7 +62,7 @@
     --wayfs-card: var(--color-dark-card);
     --wayfs-text: var(--color-text-dark);
     --wayfs-text-secondary: var(--color-text-dark-secondary);
-    --wayfs-border: rgba(72, 198, 203, 0.2);
+    --wayfs-border: rgba(245, 184, 0, 0.2);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -67,7 +72,7 @@
         --wayfs-card: var(--color-dark-card);
         --wayfs-text: var(--color-text-dark);
         --wayfs-text-secondary: var(--color-text-dark-secondary);
-        --wayfs-border: rgba(72, 198, 203, 0.2);
+        --wayfs-border: rgba(245, 184, 0, 0.2);
     }
 }
 
@@ -88,33 +93,33 @@ body {
    TEXT GRADIENT UTILITIES
    ============================================================ */
 
-/* Primary brand gradient: #5634BA → #560DDE */
+/* Primary brand gradient: Yellow → Lime → Green */
 .text-gradient-brand {
-    background: linear-gradient(135deg, #5634BA, #560DDE);
+    background: linear-gradient(135deg, #F5B800, #A8D400, #10B860);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* Danger gradient: #922B2B → #AF3F00 */
+/* Danger gradient */
 .text-gradient-danger {
-    background: linear-gradient(135deg, #922B2B, #AF3F00);
+    background: linear-gradient(135deg, #C13A2A, #E04B1A);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* Lime accent text */
+/* Green accent text */
 .text-gradient-lime {
-    background: linear-gradient(135deg, #96A80D, #B8D40E);
+    background: linear-gradient(135deg, #0D9647, #22C55E);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* Full spectrum gradient: brand → danger → lime */
+/* Full spectrum gradient: yellow → green */
 .text-gradient-full {
-    background: linear-gradient(135deg, #5634BA, #560DDE, #922B2B, #AF3F00, #96A80D);
+    background: linear-gradient(135deg, #F5B800, #FFD700, #22C55E, #0D9647);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -137,7 +142,7 @@ body {
 }
 
 /* ============================================================
-   BUTTON STYLES (comp palette)
+   BUTTON STYLES (yellow & green palette)
    ============================================================ */
 
 .btn-wayfs {
@@ -170,74 +175,74 @@ body {
     opacity: 1;
 }
 
-/* Primary CTA — teal→cyan gradient */
+/* Primary CTA — green gradient */
 .btn-primary {
-    background: linear-gradient(135deg, #316D70, #48C6CB);
+    background: linear-gradient(135deg, #0A7B3B, #10B860);
     color: #fff;
-    box-shadow: 0 4px 15px rgba(49, 109, 112, 0.35);
+    box-shadow: 0 4px 15px rgba(10, 123, 59, 0.35);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(49, 109, 112, 0.5);
+    box-shadow: 0 8px 25px rgba(10, 123, 59, 0.5);
 }
 
 .btn-primary:active {
     transform: translateY(0);
 }
 
-/* Secondary — magenta→green gradient */
+/* Secondary — yellow → green gradient */
 .btn-secondary {
-    background: linear-gradient(135deg, #C914C7, #16FF4B);
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(201, 20, 199, 0.3);
+    background: linear-gradient(135deg, #F5B800, #10B860);
+    color: #0A1A0F;
+    box-shadow: 0 4px 15px rgba(245, 184, 0, 0.3);
 }
 
 .btn-secondary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(201, 20, 199, 0.45);
+    box-shadow: 0 8px 25px rgba(245, 184, 0, 0.45);
 }
 
 .btn-secondary:active {
     transform: translateY(0);
 }
 
-/* Outline — teal border */
+/* Outline — green border */
 .btn-outline {
     background: transparent;
-    color: #48C6CB;
-    border: 2px solid #48C6CB;
+    color: #10B860;
+    border: 2px solid #10B860;
     box-shadow: none;
 }
 
 .btn-outline:hover {
-    background: rgba(72, 198, 203, 0.1);
+    background: rgba(16, 184, 96, 0.1);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(72, 198, 203, 0.2);
+    box-shadow: 0 4px 15px rgba(16, 184, 96, 0.2);
 }
 
 /* Danger button — danger gradient */
 .btn-danger {
-    background: linear-gradient(135deg, #922B2B, #AF3F00);
+    background: linear-gradient(135deg, #C13A2A, #E04B1A);
     color: #fff;
-    box-shadow: 0 4px 15px rgba(146, 43, 43, 0.3);
+    box-shadow: 0 4px 15px rgba(193, 58, 42, 0.3);
 }
 
 .btn-danger:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(146, 43, 43, 0.45);
+    box-shadow: 0 8px 25px rgba(193, 58, 42, 0.45);
 }
 
-/* Success — lime */
+/* Success — green */
 .btn-success {
-    background: linear-gradient(135deg, #96A80D, #16FF4B);
-    color: #0D0520;
-    box-shadow: 0 4px 15px rgba(150, 168, 13, 0.3);
+    background: linear-gradient(135deg, #0D9647, #22C55E);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(13, 150, 71, 0.3);
 }
 
 .btn-success:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(150, 168, 13, 0.45);
+    box-shadow: 0 8px 25px rgba(13, 150, 71, 0.45);
 }
 
 /* ============================================================
@@ -245,12 +250,12 @@ body {
    ============================================================ */
 
 .nav-wayfs {
-    background: linear-gradient(135deg, #316D70, #48C6CB);
+    background: linear-gradient(135deg, #0A7B3B, #10B860);
     padding: 1rem 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 20px rgba(49, 109, 112, 0.3);
+    box-shadow: 0 4px 20px rgba(10, 123, 59, 0.3);
     position: relative;
     z-index: 100;
 }
@@ -282,7 +287,7 @@ body {
     transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background: #16FF4B;
+    background: #FFD700;
     transition: width 0.3s ease;
 }
 
@@ -302,7 +307,7 @@ body {
 
 .nav-wayfs .nav-link.active::after {
     width: 60%;
-    background: #C914C7;
+    background: #F5B800;
 }
 
 /* ============================================================
@@ -321,34 +326,34 @@ body {
 
 .card-wayfs:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(86, 52, 186, 0.12);
-    border-color: rgba(86, 52, 186, 0.3);
+    box-shadow: 0 12px 40px rgba(13, 150, 71, 0.12);
+    border-color: rgba(13, 150, 71, 0.3);
 }
 
 .dark .card-wayfs:hover {
-    box-shadow: 0 12px 40px rgba(72, 198, 203, 0.15);
-    border-color: rgba(72, 198, 203, 0.3);
+    box-shadow: 0 12px 40px rgba(245, 184, 0, 0.15);
+    border-color: rgba(245, 184, 0, 0.3);
 }
 
 /* Card with left accent border */
 .card-wayfs.accent-brand {
-    border-left: 4px solid #5634BA;
+    border-left: 4px solid #F5B800;
 }
 
 .card-wayfs.accent-cyan {
-    border-left: 4px solid #48C6CB;
+    border-left: 4px solid #10B860;
 }
 
 .card-wayfs.accent-magenta {
-    border-left: 4px solid #C914C7;
+    border-left: 4px solid #FFD700;
 }
 
 .card-wayfs.accent-green {
-    border-left: 4px solid #16FF4B;
+    border-left: 4px solid #22C55E;
 }
 
 .card-wayfs.accent-lime {
-    border-left: 4px solid #96A80D;
+    border-left: 4px solid #0D9647;
 }
 
 /* ============================================================
@@ -368,8 +373,8 @@ body {
 }
 
 .input-wayfs:focus {
-    border-color: #48C6CB;
-    box-shadow: 0 0 0 3px rgba(72, 198, 203, 0.2);
+    border-color: #10B860;
+    box-shadow: 0 0 0 3px rgba(16, 184, 96, 0.2);
 }
 
 .input-wayfs::placeholder {
@@ -401,22 +406,22 @@ body {
 }
 
 .badge-todo {
-    background: linear-gradient(135deg, #316D70, #48C6CB);
+    background: linear-gradient(135deg, #0A7B3B, #10B860);
     color: #fff;
 }
 
 .badge-progress {
-    background: linear-gradient(135deg, #5634BA, #560DDE);
-    color: #fff;
+    background: linear-gradient(135deg, #F5B800, #FFD700);
+    color: #0A1A0F;
 }
 
 .badge-done {
-    background: linear-gradient(135deg, #96A80D, #16FF4B);
-    color: #0D0520;
+    background: linear-gradient(135deg, #0D9647, #22C55E);
+    color: #fff;
 }
 
 /* ============================================================
-   DARK MODE — ANIMATED BACKGROUND  (dark purple blobs)
+   DARK MODE — ANIMATED BACKGROUND  (green/yellow blobs)
    ============================================================ */
 
 .dark body,
@@ -438,7 +443,7 @@ body {
 .dark-bg-animated::before {
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, #5634BA, #560DDE, transparent 70%);
+    background: radial-gradient(circle, #0D9647, #10B860, transparent 70%);
     top: -10%;
     left: -5%;
     animation: floatBlob1 18s ease-in-out infinite;
@@ -447,7 +452,7 @@ body {
 .dark-bg-animated::after {
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, #C914C7, #316D70, transparent 70%);
+    background: radial-gradient(circle, #F5B800, #0A7B3B, transparent 70%);
     bottom: -10%;
     right: -5%;
     animation: floatBlob2 22s ease-in-out infinite;
@@ -459,7 +464,7 @@ body {
     width: 450px;
     height: 450px;
     border-radius: 50%;
-    background: radial-gradient(circle, #48C6CB, #16FF4B, transparent 70%);
+    background: radial-gradient(circle, #FFD700, #22C55E, transparent 70%);
     filter: blur(130px);
     opacity: 0.2;
     top: 40%;
@@ -554,7 +559,7 @@ body {
 
 .track-id {
     font-family: 'Fira Code', 'JetBrains Mono', monospace;
-    background: linear-gradient(135deg, rgba(86, 52, 186, 0.1), rgba(72, 198, 203, 0.1));
+    background: linear-gradient(135deg, rgba(245, 184, 0, 0.1), rgba(16, 184, 96, 0.1));
     padding: 0.25rem 0.75rem;
     border-radius: 0.5rem;
     border: 1px solid var(--wayfs-border);
@@ -563,7 +568,7 @@ body {
 }
 
 .dark .track-id {
-    background: linear-gradient(135deg, rgba(86, 52, 186, 0.2), rgba(72, 198, 203, 0.2));
+    background: linear-gradient(135deg, rgba(245, 184, 0, 0.2), rgba(16, 184, 96, 0.2));
 }
 
 /* ============================================================
@@ -575,16 +580,16 @@ body {
 }
 
 .dark ::-webkit-scrollbar-track {
-    background: #0D0520;
+    background: #0A1A0F;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #5634BA, #48C6CB);
+    background: linear-gradient(180deg, #0D9647, #F5B800);
     border-radius: 4px;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #560DDE, #C914C7);
+    background: linear-gradient(180deg, #10B860, #FFD700);
 }
 
 /* ============================================================
@@ -592,12 +597,12 @@ body {
    ============================================================ */
 
 ::selection {
-    background: rgba(86, 52, 186, 0.3);
+    background: rgba(13, 150, 71, 0.3);
     color: inherit;
 }
 
 .dark ::selection {
-    background: rgba(72, 198, 203, 0.3);
+    background: rgba(245, 184, 0, 0.3);
 }
 
 /* ============================================================
@@ -622,7 +627,7 @@ body {
 
 .theme-toggle:hover {
     background: rgba(255, 255, 255, 0.2);
-    border-color: #16FF4B;
+    border-color: #FFD700;
     transform: rotate(15deg) scale(1.1);
 }
 
@@ -664,11 +669,11 @@ body {
 
     0%,
     100% {
-        box-shadow: 0 0 5px rgba(72, 198, 203, 0.3);
+        box-shadow: 0 0 5px rgba(16, 184, 96, 0.3);
     }
 
     50% {
-        box-shadow: 0 0 20px rgba(72, 198, 203, 0.6);
+        box-shadow: 0 0 20px rgba(16, 184, 96, 0.6);
     }
 }
 

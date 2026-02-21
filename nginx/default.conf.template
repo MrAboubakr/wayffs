@@ -7,8 +7,13 @@ server {
     listen 80;
     server_name ${API_DOMAIN};
 
-    # Let's Encrypt ACME challenge
-    location /.well-known/acme-challenge/ {
+    # Let's Encrypt ACME challenge - Do not redirect!
+    # The ^~ modifier tells Nginx: 
+    # "If the URL starts with this exact string, 
+    # stop searching for other rules and use this block 
+    # immediately." This guarantees that Let's Encrypt validation traffic 
+    # stays on Port 80 and NEVER gets redirected to HTTPS.
+    location ^~ /.well-known/acme-challenge/ {
         root /var/www/certbot;
     }
 
