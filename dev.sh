@@ -4,10 +4,7 @@
 cleanup() {
     echo ""
     echo "Stopping all services..."
-    # Kill background jobs
-    kill $(jobs -p) 2>/dev/null
-    # Stop docker containers if they were started by this script
-    docker compose stop db
+    docker compose down
     echo "Done."
     exit
 }
@@ -15,80 +12,38 @@ cleanup() {
 # Trap SIGINT (Ctrl+C) and SIGTERM
 trap cleanup SIGINT SIGTERM
 
-# Handle Production Mode
-if [ "$1" == "--prod" ]; then
-    echo "Starting Wayffs Production Environment (Docker)..."
-    docker compose -f docker-compose.prod.yml up -d
-    echo ""
-    echo "Production services are starting in the background."
-    echo "Check logs with: docker compose -f docker-compose.prod.yml logs -f"
-    exit 0
-fi
-
 echo "Starting Wayffs Development Environment..."
 
-# 1. Start Database (PostgreSQL)
-echo "Starting Database..."
-# Use --remove-orphans and force recreate to avoid name conflicts
-docker compose up -d --remove-orphans db
+# 1. Build and start all Docker services (DB + Backend + Frontend)
+echo "Starting Docker services..."
+DOCKER_BUILDKIT=0 docker compose --env-file .env up -d --build --remove-orphans db backend frontend
 
 # Wait for DB to be ready
 echo "Waiting for database to be ready..."
-sleep 2
+sleep 3
 
-# Run Migrations
+# 2. Run Migrations inside the backend container
 echo "Running Migrations..."
-cd backend
-if [ -f "venv/bin/python" ]; then
-    ./venv/bin/python manage.py migrate
-else
-    echo "Warning: venv not found. Skipping migrations."
-fi
+docker compose exec backend python manage.py makemigrations --noinput
+docker compose exec backend python manage.py migrate --noinput
+
+# 3. Start Frontend locally
+echo "Starting Frontend..."
+cd frontend
+npm run dev -- --port 5173 &
+FRONTEND_PID=$!
 cd ..
-
-# 2. Start Backend
-echo "Starting Backend..."
-# Check if something is already running on 8000
-if lsof -Pi :8000 -sTCP:LISTEN -t >/dev/null ; then
-    echo "Warning: Something is already running on port 8000. Skipping backend start."
-else
-    cd backend
-    if [ -f "venv/bin/python" ]; then
-        # Use the venv python directly to ensure Django is found
-        ./venv/bin/python manage.py runserver &
-        BACKEND_PID=$!
-    else
-        echo "Error: venv not found or python missing in venv. Please run 'python -m venv venv' and install requirements."
-    fi
-    cd ..
-fi
-
-# 3. Start Frontend
-if [ "$SKIP_FRONTEND" = "1" ]; then
-    echo "Skipping Frontend (SKIP_FRONTEND=1)..."
-elif [ ! -d "frontend" ]; then
-    echo "Skipping Frontend (frontend directory not found)..."
-else
-    echo "Starting Frontend..."
-    # Check if something is already running on 5173
-    if lsof -Pi :5173 -sTCP:LISTEN -t >/dev/null ; then
-        echo "Warning: Something is already running on port 5173. Skipping frontend start."
-    else
-        cd frontend
-        # Use --port 5173 to ensure it doesn't jump to 5174
-        npm run dev -- --port 5173 &
-        FRONTEND_PID=$!
-        cd ..
-    fi
-fi
 
 echo ""
 echo "------------------------------------------------"
 echo "Services are running!"
-echo "Backend: http://localhost:8000"
-echo "Frontend: http://localhost:5173"
+echo "Backend:  http://localhost:8000  (Docker)"
+echo "Frontend: http://localhost:5173  (Local)"
+echo "API Docs: http://localhost:8000/api/docs/"
 echo "Press Ctrl+C to stop everything."
 echo "------------------------------------------------"
 
-# Wait for background processes
-wait
+# Follow Docker logs
+docker compose logs -f
+
+

@@ -31,6 +31,10 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # AI Agent Integration Fields
+    shared_id = models.CharField(max_length=50, blank=True, null=True, unique=True, help_text="Short ID for agents to reference this task")
+    created_by_agent = models.ForeignKey('agents.Agent', on_delete=models.SET_NULL, null=True, blank=True, related_name='created_tasks')
+
     def __str__(self):
         return self.title
 
