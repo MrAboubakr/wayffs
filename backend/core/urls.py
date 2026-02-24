@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     # Custom API Endpoints
-    path('api/v1/', include('agents.urls')),
+    path('api/', include('agents.urls')),
     
     # Swagger API Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
