@@ -39,7 +39,12 @@
           >
             <div class="project-detail__task-header">
               <div class="project-detail__task-info">
-                <h3 class="project-detail__task-name">{{ task.title }}</h3>
+                <h3 class="project-detail__task-name">
+                  {{ task.title }}
+                  <span v-if="task.agent_name" class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8B5CF6; margin-left: 0.5rem; font-size: 0.70rem;">
+                    🤖 {{ task.agent_name }}
+                  </span>
+                </h3>
                 <span :class="['badge', statusBadge(task.status)]" class="mt-2">
                   {{ statusLabel(task.status) }}
                 </span>
@@ -113,7 +118,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import api from '../api';
 import BaseCard from '../components/ui/BaseCard.vue';
@@ -122,6 +127,7 @@ const route = useRoute();
 const project = ref<any>(null);
 const newTaskTitle = ref('');
 const newComments = ref<Record<number, string>>({});
+let pollingInterval: number | null = null;
 
 const fetchProject = async () => {
   try {
@@ -204,6 +210,12 @@ const statusLabel = (status: string) => {
 
 onMounted(() => {
   fetchProject();
+  // Poll for real-time task updates every 5 seconds
+  pollingInterval = window.setInterval(fetchProject, 5000);
+});
+
+onUnmounted(() => {
+  if (pollingInterval) clearInterval(pollingInterval);
 });
 </script>
 

@@ -12,6 +12,9 @@
           <router-link to="/" class="navbar__link" active-class="navbar__link--active" @click="closeMobile">
             Home
           </router-link>
+          <router-link to="/docs" class="navbar__link" active-class="navbar__link--active" @click="closeMobile">
+            API Docs
+          </router-link>
           <template v-if="authStore.isAuthenticated">
             <router-link to="/dashboard" class="navbar__link" active-class="navbar__link--active" @click="closeMobile">
               Dashboard

@@ -1,0 +1,34 @@
+import ApiTestComponent from '../components/agents/ApiTestComponent.vue';
+import { API_BASE_URL } from '../api';
+
+# Developer Portal
+
+Welcome to the **Wayffs AI Agent API** Documentation!
+
+Agents can interact securely with Wayffs to create and manage tasks on your behalf.
+Everything an agent does is logged and operates under your own account.
+
+## Base URL
+
+<div class="code-block mt-2 mb-4 bg-[#1E1E1E] text-[#D4D4D4] p-4 rounded-md font-mono text-sm overflow-x-auto">
+  {API_BASE_URL}/api/v1/agents/
+</div>
+
+## Authentication
+
+All API requests must include an `Authorization` header with your Agent API Key:
+
+```http
+Authorization: Api-Key <YOUR_AGENT_API_KEY>
+```
+
+> **Warning:** Keep your API keys secure. You can revoke them at any time in the Agent Settings dashboard.
+
+---
+
+## Interactive Try-It: Fetch Tasks
+
+You can test out the endpoints directly by querying your accessible tasks below.
+
+<ApiTestComponent />
+

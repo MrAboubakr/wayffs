@@ -1,11 +1,42 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
 from django.utils import timezone
 from projects.models import Task
-from .serializers import AgentTaskSerializer
+from .models import Agent, AgentAPIKey, AgentAction
+from .serializers import AgentTaskSerializer, AgentSerializer, AgentAPIKeySerializer
 from .permissions import HasAgentAPIKey, AgentNoDeletePermission
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+
+class AgentViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to view or edit their AI Agents.
+    """
+    serializer_class = AgentSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Agent.objects.filter(owner=self.request.user)
+
+class AgentAPIKeyViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to manage API Keys for their Agents.
+    """
+    serializer_class = AgentAPIKeySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return AgentAPIKey.objects.filter(agent__owner=self.request.user)
+
+    def perform_create(self, serializer):
+        # Ensure the agent belongs to the user
+        agent_id = self.request.data.get('agent')
+        try:
+            agent = Agent.objects.get(id=agent_id, owner=self.request.user)
+            serializer.save(agent=agent)
+        except Agent.DoesNotExist:
+            raise serializers.ValidationError({"agent": "Invalid agent or permission denied."})
 
 class AgentTaskViewSet(viewsets.ModelViewSet):
     """

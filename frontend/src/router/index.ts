@@ -60,6 +60,18 @@ const router = createRouter({
             meta: { requiresAuth: true }
         },
         {
+            path: '/agents',
+            name: 'agents',
+            component: () => import('../views/AgentSettingsView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/docs',
+            name: 'docs',
+            // @ts-ignore - TS doesn't know about MDX files by default
+            component: () => import('../views/DocsView.mdx')
+        },
+        {
             path: '/login',
             name: 'login',
             component: () => import('../views/LoginView.vue')

@@ -14,10 +14,11 @@ class CommentSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
+    agent_name = serializers.CharField(source='created_by_agent.name', read_only=True)
 
     class Meta:
         model = Task
-        fields = ['id', 'project', 'title', 'description', 'status', 'due_date', 'created_at', 'comments']
+        fields = ['id', 'project', 'title', 'description', 'status', 'due_date', 'created_at', 'comments', 'agent_name', 'shared_id']
 
 
 class ProjectSerializer(serializers.ModelSerializer):

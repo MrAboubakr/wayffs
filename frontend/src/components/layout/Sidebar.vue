@@ -60,6 +60,8 @@ const menuItems = [
   { icon: '✅', label: 'Tasks', to: '/tasks' },
   { icon: '📈', label: 'Analytics', to: '/analytics' },
   { icon: '🕐', label: 'Activity', to: '/activity' },
+  { icon: '🤖', label: 'Agents', to: '/agents' },
+  { icon: '📚', label: 'Agent API', to: '/docs' },
 ];
 
 const toggleCollapse = () => { isCollapsed.value = !isCollapsed.value; };
