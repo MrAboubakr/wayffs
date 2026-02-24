@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from projects.models import Task, Project
+from projects.models import Task, Project, Comment
 from users.models import User
 import string
 import random
@@ -48,11 +48,20 @@ class AgentSerializer(serializers.ModelSerializer):
         validated_data['owner'] = self.context['request'].user
         return super().create(validated_data)
 
+class AgentCommentSerializer(serializers.ModelSerializer):
+    author_name = serializers.CharField(source='author.username', read_only=True)
+    
+    class Meta:
+        model = Comment
+        fields = ['id', 'author_name', 'content', 'created_at']
+
 class AgentTaskSerializer(serializers.ModelSerializer):
+    comments = AgentCommentSerializer(many=True, read_only=True)
+
     class Meta:
         model = Task
-        fields = ['id', 'project', 'title', 'description', 'status', 'due_date', 'shared_id', 'created_at', 'updated_at']
-        read_only_fields = ['id', 'shared_id', 'created_at', 'updated_at']
+        fields = ['id', 'project', 'title', 'description', 'status', 'due_date', 'shared_id', 'created_at', 'updated_at', 'comments']
+        read_only_fields = ['id', 'shared_id', 'created_at', 'updated_at', 'comments']
 
     def create(self, validated_data):
         # Auto-generate a shared ID and link the agent
