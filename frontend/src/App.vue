@@ -15,9 +15,9 @@
 
       <!-- Page content -->
       <main class="app-content">
-        <router-view v-slot="{ Component }">
-          <Transition name="page" mode="out-in">
-            <component :is="Component" />
+        <router-view v-slot="{ Component, route }">
+          <Transition name="fade" mode="out-in">
+            <component :is="Component" :key="route.path" />
           </Transition>
         </router-view>
       </main>

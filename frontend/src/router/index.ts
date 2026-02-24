@@ -80,6 +80,14 @@ const router = createRouter({
             path: '/register',
             name: 'register',
             component: () => import('../views/RegisterView.vue')
+        },
+        {
+            path: '/projects',
+            redirect: '/dashboard'
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            redirect: '/'
         }
     ],
     scrollBehavior(_to, _from, savedPosition) {
