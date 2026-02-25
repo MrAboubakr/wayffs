@@ -3,7 +3,7 @@ import json
 
 # Configuration
 API_BASE_URL = "https://wayffs-api.edioq.com/api/agents"
-API_KEY = "a1a90fa6f9d84876bc15c0f693b7698629795fa9"
+API_KEY = "YOUR_API_KEY"
 
 headers = {
     "Authorization": f"Api-Key {API_KEY}",
